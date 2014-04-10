@@ -4,7 +4,9 @@ This backup script will create archived zfs snapshots of all lxc containers, and
 
 ### Prep:
 
-Copy your keys to the FTP server, following these instructions: http://wiki.hetzner.de/index.php/Backup/en#FTP.2FSFTP.2FSCP
+1. Copy your keys to the FTP server, following these instructions: http://wiki.hetzner.de/index.php/Backup/en#FTP.2FSFTP.2FSCP
+2. Configure s3cmd: `s3cmd --configure`
+3. Update the values in the script files; update the home directory in `s3.sh`
 
 ### Backup overview:
 
