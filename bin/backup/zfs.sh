@@ -1,7 +1,5 @@
 #/usr/bin/env bash
 
-# NOTE: intended to be run as root
-
 backupdir="$1"
 pool="$2"
 container="$3"
@@ -19,18 +17,6 @@ fi
 timestamp=$(date "+%Y-%m-%d")
 snapshot="$pool/$container@$timestamp"
 backupfile="$backupdir/$container@$timestamp.gz"
-
-ftpuser="username"
-ismounted=$(df -h | grep "$ftpuser")
-
-if [ -z "$ismounted" ]; then
-	echo "Attempting to mount FTP backup directory"
-	sshfs -o idmap=user "$ftpuser@$ftpuser.your-backup.de:lxc/" "$backupdir"
-	if [ $? -ne 0 ]; then
-		echo "FTP backup directory mount failed!"
-		exit 1
-	fi
-fi
 
 echo "Creating zfs snapshot: $snapshot..."
 zfs snapshot "$snapshot"
