@@ -1,7 +1,6 @@
 # BACKUP
 
-This backup script will safe zfs snapshots (that should lxc containers) to a mounted FTP drive, and then
-sync with amazon s3.
+This backup script will create archived zfs snapshots of all lxc containers, and save them to a mounted FTP drive and Amazon S3.
 
 ### Prep:
 
