@@ -6,7 +6,7 @@ For our setup, we have 2 x 2TB disks. We want to use 128GB in RAID-1 for the hos
 
 The only changes we made to the installimage config was to change the root (/) size to 128GB and change the hostname. After saving the install image config, the rescue system will partition the disk, setup RAID-1 and install the operating system.
 
-## Parition disks
+## Partition disks
 
 Once you've booted into your OS for the first time, we'll want to parition the free space on each of the drives.
 
@@ -34,11 +34,12 @@ You should have "sda1,sda2,sda3,sda4 and sdb1,sdb2,sdb3,sdb4" as well as raid pa
 
 Install lxc
 
+```bash
 apt-get install python-software-properties -y
 apt-add-repository ppa:ubuntu-lxc/daily
 apt-get update
 sudo apt-get install lxc -y
-
+```
 
 ## Setup ZFS
 
