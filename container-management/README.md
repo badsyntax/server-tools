@@ -1,8 +1,8 @@
-# CONTAINER MANAGEMENT
+#CONTAINER MANAGEMENT
 
 Ensure you have followed all the steps in the zfs-lxc-setup README before continuing. This guide assumes you have your host OS setup, your disks setup, lxc and zfs installed.
 
-## Creating the base container
+##Creating the base container
 
 Create a base container with ZFS backing store:
 
@@ -82,11 +82,11 @@ echo "Hello, world" | mail -s "Anybody out there?" YOUR@EMAIL.COM
 lxc-stop -n ubuntu-base
 ```
 
-## Cloning containers
+##Cloning containers
 
 Now that our base container is setup, let's snapshot it and start creating different container environments.
 
-### Creating a base LAMP container
+###Creating a base LAMP container
 
 ```
 lxc-clone -s -o ubuntu-base -n ubuntu-lamp
@@ -139,7 +139,7 @@ a2enmod rewrite
 a2enmod ssl
 ```
 
-Edit PHP config
+Edit PHP config:
 
 ```
 vi /etc/php5/apache2/php.ini
@@ -154,16 +154,28 @@ date.timezone = "Europe/London"
 memory_limit = 128M
 ```
 
-Test Apache config
+Test Apache config:
 
 ```
 apache2ctl configtest
 ```
 
-Restart Apache
+Restart Apache:
 
 ```
 service apache2 restart
 ```
 
-*Now exit out of the container.*
+*You're done setting up the base LAMP container, now exit out of the container.*
+
+###Creating a LAMP container
+
+Simply clone the LAMP container:
+
+```
+lxc-clone -s -o ubuntu-lamp-n <containername>
+```
+
+Now change the MySQL details:
+
+@todo
