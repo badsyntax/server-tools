@@ -1,6 +1,6 @@
 # ZFS and LXC setup
 
-(You should be root when exeucting any of the command below.)
+(You should be root when exeucting any of the commands below.)
 
 ## Prep
 
