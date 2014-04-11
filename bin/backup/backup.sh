@@ -5,7 +5,7 @@
 
 ### ADJUST VALUE BELOW ############################################
 
-# We read config files (both s3 and this script) from this HOME directory.
+# Location of config files
 export HOME=/root
 
 ### LEAVE THE REST UNTOUCHED ######################################
