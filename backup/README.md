@@ -14,10 +14,10 @@ This backup script will create archived zfs snapshots of all lxc containers, and
 Location: `/root/.backupcfg`
 
 ```
-backup_conf_backupdir="/backup/lxc"
-backup_conf_s3bucket="bucket-name"
-backup_conf_zfspool="lxc"
-backup_conf_ftpuser="uxxxxx"
+backupdir="/backup/lxc"
+s3bucket="bucket-name"
+zfspool="lxc"
+ftpuser="uxxxxx"
 ```
 
 ### Backup overview:
