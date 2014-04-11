@@ -1,5 +1,7 @@
 # CONTAINER MANAGEMENT
 
+Ensure you have followed all the steps in the zfs-lxc-setup README before continuing. This guide assumes you have your host OS setup, your disks setup, lxc and zfs installed.
+
 ## Creating the base container
 
 Create a base container with ZFS backing store:
