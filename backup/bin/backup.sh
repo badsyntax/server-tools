@@ -1,4 +1,4 @@
-#/usr/bin/env bash
+#!/usr/bin/env bash
 # Written by Richard Willis <willis.rh@gmail.com>
 
 # NOTE: this script should be run by cron as root user
