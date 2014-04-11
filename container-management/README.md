@@ -348,9 +348,37 @@ If a user would like a LAMP environment, simply clone the base LAMP container:
 
 
 ```
-lxc-clone -s -o ubuntu-lamp-n <containername>
+lxc-clone -s -o ubuntu-lamp-n my-container
 ```
 
-Now change the MySQL details:
+Auto-start the container on host boot:
 
-@todo
+```
+ln -s /var/lib/lxc/my-container/config /etc/lxc/auto/my-container
+```
+
+Adjust networking for container (for example):
+
+```
+vi /var/lib/lxc/my-container/config
+lxc.network.ipv4 = 10.0.3.132
+```
+
+Now we need to port-forward a random port to the container's SSH port:
+
+```
+iptables -t nat -A PREROUTING -p tcp -d <EXTERNAL_HOST_IP> -j DNAT --dport 2222 --to-destination <CONTAINER_IP>:22
+```
+
+Save the rules:
+
+```
+iptables-save > /etc/iptables.conf
+```
+
+View the rules:
+
+```
+iptables -t nat -L
+```
+
