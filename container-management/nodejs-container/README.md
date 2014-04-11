@@ -161,3 +161,24 @@ Restart nginx:
 ```
 service nginx restart
 ```
+
+##Container config
+
+###Auto-start node.js apps on boot
+
+Create a new upstart file:
+
+```
+vi /etc/init/node_apps.conf
+```
+
+Add the following (change <user>):
+
+```
+start on startup
+
+script
+        su <user> -c "forever start /home/<user>/Projects/myapp.co/app.js"
+        su <user> -c "forever start /home/<user>/Projects/myotherapp.co/app.js"
+end script
+```
