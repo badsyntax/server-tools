@@ -78,6 +78,9 @@ do
 	fi
 done
 
+size=$(du -h "$backupdir")
+echo "Total backup size: $size"
+
 # Backup the containers to S3
 echo "Backing up $backupdir to s3..."
 backup_s3 "$backupdir" "$s3bucket"
