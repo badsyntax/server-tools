@@ -1,4 +1,5 @@
 #/usr/bin/env bash
+# Written by Richard Willis <willis.rh@gmail.com>
 
 # NOTE: this script should be run by cron as root user
 
@@ -10,10 +11,10 @@ export HOME=/home/username
 backupdir="/backup/lxc"
 s3bucket="bucket-name"
 zfspool="lxc"
-ftpuser="username"
+ftpuser="uxxxxxx"
 ismounted=$(df -h | grep "$ftpuser")
 
-### LEAVE THE RESET UNTOUCHED ######################################
+### LEAVE THE REST UNTOUCHED ######################################
 
 function backup_s3 {
 	s3cmd sync --delete-removed "$backupdir" "s3://$s3bucket/"
