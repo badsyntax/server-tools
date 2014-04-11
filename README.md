@@ -26,4 +26,5 @@ Let's begin!
 4. securing-containers - Secure the containers
 5. monitoring - Setup monitoring of the host and containers
 6. backup - Backup your containers to a mounted FTP drive and amazon s3
-7. migrate - Migrate your data from another server into your new containers
+7. restore - Restore your archived containers
+8. migrate - Migrate your data from another server into your containers
