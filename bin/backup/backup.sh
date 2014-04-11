@@ -2,6 +2,8 @@
 
 # NOTE: this script should be run by cron as root user
 
+### ADJUST VALUES BELOW ############################################
+
 # s3cmd will look in this directory for the s3 configuration
 export HOME=/home/username
 
@@ -10,6 +12,8 @@ s3bucket="bucket-name"
 zfspool="lxc"
 ftpuser="username"
 ismounted=$(df -h | grep "$ftpuser")
+
+### LEAVE THE RESET UNTOUCHED ######################################
 
 function backup_s3 {
 	s3cmd sync --delete-removed "$backupdir" "s3://$s3bucket/"
