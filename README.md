@@ -6,7 +6,7 @@ A repo to store my bash scripts and documentation for Hetzner server management.
 
 ### Goal
 
-Here's what we'll do: 128Gb in RAID-1 for host OS. LXC with ZFS backend (mirrored pool) for everything else. Container snapshot backups to external FTP server and Amazon S3.
+128Gb in RAID-1 for host OS (Ubuntu 12.04). LXC with ZFS backend (mirrored pool) for everything else. Container snapshot backups to external FTP server and Amazon S3. Easy snapshot restore.
 
 ### Process
 
