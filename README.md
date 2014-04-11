@@ -8,7 +8,7 @@ A repo to store my bash scripts and documentation for Hetzner server management.
 
 * Intel ® Core™ i7-4770 Quadcore Haswell incl. Hyper-Threading Technology
 * RAM: 32 GB DDR3 RAM
-* Hard Drive2 x 2 TB SATA 6 Gb/s 7200 rpm HDD (Software-RAID 1)
+* Hard Drive2 x 2 TB SATA 6 Gb/s 7200 rpm HDD
 * Backup space: 100 GB
 
 ## Goal
