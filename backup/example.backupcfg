@@ -1,0 +1,5 @@
+# Save this file as .backupcfg in your home directory
+backupdir="/backup/lxc"
+s3bucket="bucketname"
+zfspool="lxc"
+ftpuser="uxxxxx"
