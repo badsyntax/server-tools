@@ -48,7 +48,7 @@ Disable deduplication:
 zfs set dedup=off lxc
 ```
 
-Show snapshots when listing the zfs paritions.
+Show snapshots when listing the zfs partitions.
 
 ```bash
 zpool set listsnapshots=on lxc
