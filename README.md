@@ -16,3 +16,4 @@ Let's begin!
 2. zfs-lxc-setup - Install zfs and lxc
 3. container-management - Create some containers
 4. backup - Backup your containers to a mounted FTP drive and amazon s3
+5. migrate - Migrate your data from another server into your new containers
