@@ -3,18 +3,27 @@
 
 # NOTE: this script should be run by cron as root user
 
-### ADJUST VALUES BELOW ############################################
+### ADJUST VALUE BELOW ############################################
 
-# s3cmd will look in this directory for the s3 configuration
-export HOME=/home/username
-
-backupdir="/backup/lxc"
-s3bucket="bucket-name"
-zfspool="lxc"
-ftpuser="uxxxxxx"
-ismounted=$(df -h | grep "$ftpuser")
+# We read config files (both s3 and this script) from this HOME directory.
+export HOME=/root
 
 ### LEAVE THE REST UNTOUCHED ######################################
+
+configfile="$HOME/.backupcfg"
+
+if [ ! -e "$configfile" ]; then
+	echo "Error: backup config file does not exist at location: $configfile"
+	exit 1
+fi
+
+source "$configfile"
+
+backupdir="$backup_conf_backupdir"
+s3bucket="$backup_conf_s3bucket"
+zfspool="$backup_conf_zfspool"
+ftpuser="$backup_conf_ftpuser"
+ismounted=$(df -h | grep "$ftpuser")
 
 function backup_s3 {
 	s3cmd sync --delete-removed "$backupdir" "s3://$s3bucket/"
@@ -98,4 +107,3 @@ echo "Unmounting FTP backup drive..."
 umount "$backupdir"
 
 echo "Done!"
-
