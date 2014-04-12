@@ -118,6 +118,10 @@ function show_backup_size {
 }
 
 function main {
+	local timestamp=$(date)
+	local user=$(whoami)
+	echo "Creating backup for $timestamp on $HOSTNAME."
+	echo -e "Running backup script as $user.\n"
 	load_config
 	mount_backup_drive
 	backup_containers
@@ -125,6 +129,6 @@ function main {
 	backup_s3
 	clean_backups
 	unmount_backup_drive
-	echo "All tasks completed successfully!"
+	echo -e "\nAll tasks completed successfully!\n"
 }
 main
