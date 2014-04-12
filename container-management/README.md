@@ -102,7 +102,7 @@ If a user would like a LAMP environment, simply clone the base LAMP container:
 
 
 ```
-lxc-clone -s -o ubuntu-lamp-n my-container
+lxc-clone -s -o ubuntu-lamp -n my-container
 ```
 
 Auto-start the container on host boot:
