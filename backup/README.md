@@ -44,11 +44,14 @@ Edit your crontab like so:
 sudo crontab -e
 ```
 
+**NOTE:** You have to specify the PATH in your crontab!
+
 Example crontab:
 
 ```
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 MAILTO=your@email.com
-@daily /root/bin/backup.sh
+@daily /usr/bin/time /root/bin/backup.sh
 ```
 
 
