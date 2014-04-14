@@ -124,13 +124,15 @@ We don't want to clone containers to create user containers as it makes restorin
 
 First thing to is create the container:
 
-lxc-create -t ubuntu -n <container> -B zfs
+```
+lxc-create -t ubuntu -n my-conainer -B zfs
+```
 
 Now we replace the filesystem with a copy of a base container:
 
 
 ```
-zfs send lxc/ubuntu-lamp@v0.1 | zfs receive lxc/sascha -F
+zfs send lxc/ubuntu-lamp@v0.1 | zfs receive lxc/my-container -F
 ```
 
 Auto-start the container on host boot:
