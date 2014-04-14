@@ -86,6 +86,12 @@ echo "Hello, world" | mail -s "Anybody out there?" YOUR@EMAIL.COM
 lxc-stop -n ubuntu-base
 ```
 
+Now snapshot the ubuntu-base filesystem. We'll be builing up from this point using different snapshots of this OS:
+
+```
+zfs snapshot lxc/ubuntu-base@v0.1
+```
+
 ###Create a base LAMP container.
 
 See lamp-container
@@ -96,9 +102,15 @@ See nodejs-container
 
 ##User containers
 
-Now that we have created our base containers, we can start creating containers for users.
+Now that we have created our base containers, we can start creating containers for users. 
 
-If a user would like a LAMP environment, simply clone the base LAMP container:
+We don't want to clone containers to create user containers as it makes restoring the backups a bit more cumbersome.
+
+So if a user would like a LAMP environment, we create a new snapshot like so:
+
+zfs send lxc/ubuntu-base@tag | zfs recv lxc/newguest
+
+simplyclone the base LAMP container:
 
 
 ```
@@ -134,4 +146,36 @@ View the rules:
 
 ```
 iptables -t nat -L
+```
+
+## General notes
+
+If you try to destroy a container, the `lxc-destroy' command will fail if the zfs filesystem has any snapshots. When I run:
+
+```
+lxc-destroy -n sascha
+```
+
+This is the error message I get:
+
+
+```
+root@proxima:~# lxc-destroy -n sascha
+cannot destroy 'lxc/sascha': filesystem has children
+use '-r' to destroy the following datasets:
+lxc/sascha@first
+lxc_container: Error destroying rootfs for sascha
+Destroying sascha failed
+```
+
+You need to first destroy the zfs filesystem and all snapshots:
+
+```
+zfs destroy lxc/sascha -r
+```
+
+And then you can destroy the container:
+
+```
+lxc-destroy -n sascha
 ```
