@@ -56,9 +56,25 @@ Remove the ubuntu user:
 userdel -r ubuntu
 ```
 
+Change the apt mirror for faster software installs:
+
+
+Example `/etc/apt/sources.list`:
+
+```
+#######################################################################################
+# Hetzner APT-Mirror
+
+deb http://mirror.hetzner.de/ubuntu/packages precise main restricted universe multiverse
+deb http://mirror.hetzner.de/ubuntu/packages precise-backports main restricted universe multiverse
+deb http://mirror.hetzner.de/ubuntu/packages precise-updates main restricted universe multiverse
+deb http://mirror.hetzner.de/ubuntu/security precise-security main restricted universe multiverse
+```
+
 Install basic software:
 
 ```
+apt-get update  
 apt-get install vim curl wget bash-completion build-essential python-software-properties -y
 ```
 
@@ -106,15 +122,15 @@ Now that we have created our base containers, we can start creating containers f
 
 We don't want to clone containers to create user containers as it makes restoring the backups a bit more cumbersome.
 
-So if a user would like a LAMP environment, we create a new snapshot like so:
+First thing to is create the container:
 
-zfs send lxc/ubuntu-base@tag | zfs recv lxc/newguest
+lxc-create -t ubuntu -n <container> -B zfs
 
-simplyclone the base LAMP container:
+Now we replace the filesystem with a copy of a base container:
 
 
 ```
-lxc-clone -s -o ubuntu-lamp -n my-container
+zfs send lxc/ubuntu-lamp@v0.1 | zfs receive lxc/sascha -F
 ```
 
 Auto-start the container on host boot:
@@ -179,3 +195,5 @@ And then you can destroy the container:
 ```
 lxc-destroy -n sascha
 ```
+
+If you get "dataset is buy" error when trying destroy a zfs filesystem then I found rebooting solves this.
