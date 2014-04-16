@@ -14,7 +14,7 @@ This backup script will create archived zfs snapshots of all lxc containers, and
 
 Location: `/root/.backupcfg`
 
-```
+```bash
 backupdir="/backup/lxc"
 s3bucket="bucket-name"
 zfspool="lxc"
@@ -48,7 +48,7 @@ sudo crontab -e
 
 Example crontab:
 
-```
+```bash
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 MAILTO=your@email.com
 @daily /usr/bin/time /root/bin/backup.sh
@@ -58,7 +58,7 @@ MAILTO=your@email.com
 
 Backup and restore:
 
-```
+```bash
 # Take backup
 zfs snapshot lxc/sascha@0.1
 zfs send lxc/sascha@0.1 | gzip > sascha@0.1.gz
