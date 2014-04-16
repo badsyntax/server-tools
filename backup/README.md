@@ -54,4 +54,21 @@ MAILTO=your@email.com
 @daily /usr/bin/time /root/bin/backup.sh
 ```
 
+## Snippets
 
+Backup and restore:
+
+```
+# Take backup
+zfs snapshot lxc/sascha@0.1
+zfs send lxc/sascha@0.1 | gzip > sascha@0.1.gz
+zfs destroy lxc/sascha@0.1
+# Now back a change to the sascha container
+chroot /lxc/sascha/rootfs
+touch /root/old
+exit
+# Extract and restore backup
+gunzip sascha@0.1.gz
+zfs receive lxc/sascha < sascha@0.1 -F
+zfs destroy lxc/sascha@0.1
+```
