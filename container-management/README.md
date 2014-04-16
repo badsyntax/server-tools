@@ -138,7 +138,7 @@ zfs send lxc/ubuntu-lamp@v0.1 | zfs receive lxc/my-container -F
 At this point zfs would have auto-created the v0.1 snapshot of the 'my-container' container. You'll want to remove this snapshot:
 
 ```
-zfs destroy my-container@v01
+zfs destroy lxc/my-container@v01
 ```
 
 Auto-start the container on host boot:
