@@ -172,6 +172,30 @@ View the rules:
 iptables -t nat -L
 ```
 
+Auto load iptables rules on boot:
+
+```
+vi /etc/network/interfaces
+```
+
+```
+iface eth0 inet static
+  pre-up iptables-restore < /etc/iptables.conf
+```
+
+Retart the container:
+
+```
+lxc-stop -n my-container
+lxc-start -n my-conainer
+```
+
+Change mysql root password:
+
+```
+mysqladmin -u root -p'root' password NEWPASSWORD
+```
+
 ## General notes
 
 If you try to destroy a container, the `lxc-destroy' command will fail if the zfs filesystem has any snapshots. When I run:
