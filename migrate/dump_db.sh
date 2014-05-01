@@ -15,16 +15,17 @@ if [ -z "$user" ] || [ -z "$port" ]; then
 	exit 1
 fi
 
-grants=$(mysql -u root -p"$root_password" -B -N -e"SHOW GRANTS FOR '$user'@localhost")
-
-echo "$grants" |  sed '/; *$/!s/$/;/' > "$file"
-
 mysql_user="$user""_"
 mysqldump -u root -p"$root_password" --databases $(
 	mysql -u root -p"$root_password" -N information_schema -e "
 		SELECT DISTINCT(TABLE_SCHEMA) 
 		FROM tables WHERE TABLE_SCHEMA 
 		LIKE '$mysql_user%'"
-) >> "$file"
+) > "$file"
 
-cat "$file" | ssh -p "$port" richard@"$user".proxima.cc mysql -u root -p"$root_password"
+grants=$(mysql -u root -p"$root_password" -B -N -e"SHOW GRANTS FOR '$user'@localhost")
+
+# add semicolons and strip extra backslashes
+echo "$grants" |  sed '/; *$/!s/$/;/' | sed 's/\(\\\)//g' >> "$file"
+
+cat "$file" | ssh -p "$port" root@NEWHOST mysql -u root -p"$root_password"
