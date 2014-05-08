@@ -23,7 +23,7 @@ Location: `/root/.backupcfg`
 
 ```bash
 localbackupdir="/backup/local"
-ftpbackupdir="/backup/ftp
+ftpbackupdir="/backup/ftp"
 s3bucket="bucket-name"
 zfspool="lxc"
 ftpuser="uxxxxx"
