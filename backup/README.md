@@ -4,6 +4,13 @@ This backup script will create archived zfs snapshots of all lxc containers, and
 
 ### Prep:
 
+First, create a new ZFS filesystem for the backups:
+
+```
+zfs create -o mountpoint=/backup lxc/backup
+zfs set sync=disabled lxc/backup
+```
+
 1. Copy your keys to the FTP server, [follow these instructions](http://wiki.hetzner.de/index.php/Backup/en#FTP.2FSFTP.2FSCP).
 2. Install s3cmd: `sudo apt-get install s3cmd -y`
 2. Configure s3cmd: `s3cmd --configure`
@@ -15,7 +22,8 @@ This backup script will create archived zfs snapshots of all lxc containers, and
 Location: `/root/.backupcfg`
 
 ```bash
-backupdir="/backup/lxc"
+localbackupdir="/backup/local"
+ftpbackupdir="/backup/ftp
 s3bucket="bucket-name"
 zfspool="lxc"
 ftpuser="uxxxxx"
