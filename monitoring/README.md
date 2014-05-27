@@ -95,7 +95,7 @@ cd /etc/nagios3/conf.d
 cp localhost_nagios2.cfg container.yourhost.com_nagios2.cfg
 vi container.yourhost.com
 
-Add the following:
+Add the following: (change X.X.X.X to your host machine ip address, change <port> to the port where nagios-npre-server is listening.)
 
 ```
 # A simple configuration file for monitoring the local host
@@ -108,7 +108,7 @@ define host{
         use                     generic-host            ; Name of host template to use
         host_name              	container.yourhost.com
         alias                   container.yourhost.com
-        address                 148.251.88.203
+        address                 X.X.X.X -p <port>
         }
 
 # Define a service to check the disk space of the root partition
@@ -160,6 +160,10 @@ define service{
 
 ```
 
+Restart nagios:
 
+```
+service nagios3 restart
+```
 
-
+If you're monitoring the host OS, then 
