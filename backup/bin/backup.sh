@@ -6,22 +6,17 @@
 export HOME=/root
 ### LEAVE THE REST UNTOUCHED ###
 
-function load_config {
-
-	local configfile="$HOME/.backupcfg"
-
-	if [ ! -e "$configfile" ]; then
-		echo "Error: backup config file does not exist at location: $configfile"
-		exit 1
-	fi
-
-	source "$configfile"
-
-	if [ -z "$ftpbackupdir" ] || [ -z "$localbackupdir" ] || [ -z "$s3bucket" ] || [ -z "$zfspool" ] || [ -z "$ftpuser" ]; then
-		echo "Invalid config!"
-		exit 1
-	fi
-}
+# Attempt to load the config
+configfile="$HOME/.backupcfg"
+if [ ! -e "$configfile" ]; then
+	echo "Error: backup config file does not exist at location: $configfile"
+	exit 1
+fi
+source "$configfile"
+if [ -z "$ftpbackupdir" ] || [ -z "$localbackupdir" ] || [ -z "$s3bucket" ] || [ -z "$zfspool" ] || [ -z "$ftpuser" ]; then
+	echo "Invalid config!"
+	exit 1
+fi
 
 # Sync local files with s3
 function backup_s3 {
