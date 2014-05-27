@@ -9,7 +9,7 @@ We don't want to install the full Nagios3 package on the host OS or containers a
 
 We'll be using the backup machine for installing the main nagios web package and runnng checks on the remote servers.
 
-## Installing the nagios server within a container
+## Installing the nagios server within a container or the host OS
 
 ```bash
 sudo apt-get update
@@ -22,7 +22,7 @@ Check that the plugins were installed:
 ls -l /usr/lib/nagios/plugins/
 ```
 
-## Adjusting the config
+### Adjusting the config
 
 ```bash
 vi /etc/nagios/nrpe_local.cfg
@@ -35,7 +35,7 @@ Add the following, but change X.X.X.X to the ip address of the backup server.
 # Do any local nrpe configuration here
 ######################################
 
-allowed_hosts=127.0.0.1,37.187.47.140
+allowed_hosts=127.0.0.1,X.X.X.X
 
 command[check_users]=/usr/lib/nagios/plugins/check_users -w 5 -c 10
 command[check_load]=/usr/lib/nagios/plugins/check_load -w 15,10,5 -c 30,25,20
@@ -49,4 +49,17 @@ Restart the nrpe service:
 
 ```bash
 service nagios-nrpe-server restart
+```
+
+*NOTE*
+
+If you installed the nrpe-server on a container, then we need to port-forward an 'outside' port on the host OS to an 'internal' container port.
+
+
+
+## Installing Nagios on the monitoring/backup server
+
+```bash
+sudo apt-get update
+sudo apt-get install nagios3 nagios-nrpe-plugin
 ```
