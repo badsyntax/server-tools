@@ -14,6 +14,12 @@ Create a base container with ZFS backing store:
 lxc-create -t ubuntu -n ubuntu-base -B zfs
 ```
 
+Set quotas on the disk:
+
+```
+zfs set quota=10G lxc/richard
+```
+
 Start the container as a daemon:
 
 ```
