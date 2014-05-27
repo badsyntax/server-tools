@@ -106,8 +106,8 @@ Add the following:
 
 define host{
         use                     generic-host            ; Name of host template to use
-        host_name              	proxima.cc
-        alias                   proxima.cc
+        host_name              	container.yourhost.com
+        alias                   container.yourhost.com
         address                 148.251.88.203
         }
 
@@ -117,7 +117,7 @@ define host{
 
 define service{
         use                             generic-service         ; Name of service template to use
-        host_name                       proxima.cc
+        host_name                       container.yourhost.com
         service_description             RootFS Disk Space
         check_command                   check_nrpe_1arg!check_rootfs_disk
         }
@@ -130,7 +130,7 @@ define service{
 
 define service{
         use                             generic-service         ; Name of service template to use
-        host_name                       proxima.cc
+        host_name                       container.yourhost.com
         service_description             Current Users
         check_command                   check_nrpe_1arg!check_users
         }
@@ -142,7 +142,7 @@ define service{
 
 define service{
         use                             generic-service         ; Name of service template to use
-        host_name                       proxima.cc
+        host_name                       container.yourhost.com
         service_description             Total Processes
 	check_command                   check_nrpe_1arg!check_total_procs
         }
@@ -153,7 +153,7 @@ define service{
 
 define service{
         use                             generic-service         ; Name of service template to use
-        host_name                       proxima.cc
+        host_name                       container.yourhost.com
         service_description             Current Load
 	check_command                   check_nrpe_1arg!check_load
         }
