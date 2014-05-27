@@ -51,11 +51,32 @@ Restart the nrpe service:
 service nagios-nrpe-server restart
 ```
 
-*NOTE*
+## Forwarding ports for nagios installed in containers
 
-If you installed the nrpe-server on a container, then we need to port-forward an 'outside' port on the host OS to an 'internal' container port.
+If you installed the nrpe-server on a container, then we need to port-forward an 'outside' port on the host OS to an 'internal' container port. I leave the default port setting in `/etc/nagios/nrpe.cfg', which is 5666. I then port-forward ports starting from 5667 to port 5666 on the various containers.
 
 
+'''shell
+iptables -t nat -A PREROUTING -p tcp -d <EXTERNAL_HOST_IP> -j DNAT --dport 5667 --to-destination <CONTAINER_IP>:5666
+'''
+
+Save the rules:
+
+```
+iptables-save > /etc/iptables.conf
+```
+
+View the rules:
+
+```
+iptables -t nat -L
+```
+
+Now on your backup/monitoring server, check that we can connect to the nagios nrpe server within the container:
+
+```
+/usr/lib/nagios/plugins/check_nrpe -H 148.251.88.203 -p 5667
+```
 
 ## Installing Nagios on the monitoring/backup server
 
