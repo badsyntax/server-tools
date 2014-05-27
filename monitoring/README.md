@@ -9,6 +9,17 @@ We don't want to install the full Nagios3 package on the host OS or containers a
 
 We'll be using the backup machine for installing the main nagios web package and runnng checks on the remote servers.
 
+## Installing Nagios on the monitoring/backup server
+
+Before we setup monitoring on the host OS and containers, we need to install nagios on our monitoring/backup server:
+
+```bash
+sudo apt-get update
+sudo apt-get install nagios3 nagios-nrpe-plugin
+```
+
+Navigate to monitoringserver/nagios3 with your browser.
+
 ## Installing the nagios server within a container or the host OS
 
 ```bash
@@ -78,9 +89,77 @@ Now on your backup/monitoring server, check that we can connect to the nagios nr
 /usr/lib/nagios/plugins/check_nrpe -H 148.251.88.203 -p 5667
 ```
 
-## Installing Nagios on the monitoring/backup server
+Adding a new host to the nagios monitoring server:
 
-```bash
-sudo apt-get update
-sudo apt-get install nagios3 nagios-nrpe-plugin
+cd /etc/nagios3/conf.d
+cp localhost_nagios2.cfg container.yourhost.com_nagios2.cfg
+vi container.yourhost.com
+
+Add the following:
+
 ```
+# A simple configuration file for monitoring the local host
+# This can serve as an example for configuring other servers;
+# Custom services specific to this host are added here, but services
+# defined in nagios2-common_services.cfg may also apply.
+# 
+
+define host{
+        use                     generic-host            ; Name of host template to use
+        host_name              	proxima.cc
+        alias                   proxima.cc
+        address                 148.251.88.203
+        }
+
+# Define a service to check the disk space of the root partition
+# on the local machine.  Warning if < 20% free, critical if
+# < 10% free space on partition.
+
+define service{
+        use                             generic-service         ; Name of service template to use
+        host_name                       proxima.cc
+        service_description             RootFS Disk Space
+        check_command                   check_nrpe_1arg!check_rootfs_disk
+        }
+
+
+
+# Define a service to check the number of currently logged in
+# users on the local machine.  Warning if > 20 users, critical
+# if > 50 users.
+
+define service{
+        use                             generic-service         ; Name of service template to use
+        host_name                       proxima.cc
+        service_description             Current Users
+        check_command                   check_nrpe_1arg!check_users
+        }
+
+
+# Define a service to check the number of currently running procs
+# on the local machine.  Warning if > 250 processes, critical if
+# > 400 processes.
+
+define service{
+        use                             generic-service         ; Name of service template to use
+        host_name                       proxima.cc
+        service_description             Total Processes
+	check_command                   check_nrpe_1arg!check_total_procs
+        }
+
+
+
+# Define a service to check the load on the local machine. 
+
+define service{
+        use                             generic-service         ; Name of service template to use
+        host_name                       proxima.cc
+        service_description             Current Load
+	check_command                   check_nrpe_1arg!check_load
+        }
+
+```
+
+
+
+
