@@ -13,7 +13,7 @@ We'll be using the backup machine for installing the main nagios web package and
 
 Before we setup monitoring on the host OS and containers, we need to install nagios on our monitoring/backup server:
 
-```bash
+```
 sudo apt-get update
 sudo apt-get install nagios3 nagios-nrpe-plugin
 ```
@@ -22,20 +22,20 @@ Navigate to monitoringserver/nagios3 with your browser.
 
 ## Installing the nagios server within a container or the host OS
 
-```bash
+```
 sudo apt-get update
 sudo apt-get install nagios-nrpe-server
 ```
 
 Check that the plugins were installed:
 
-```bash
+```
 ls -l /usr/lib/nagios/plugins/
 ```
 
 ### Adjusting the config
 
-```bash
+```
 vi /etc/nagios/nrpe_local.cfg
 ```
 
@@ -58,7 +58,7 @@ command[check_swap]=/usr/lib/nagios/plugins/check_swap -w 20 -c 10
 
 Restart the nrpe service:
 
-```bash
+```
 service nagios-nrpe-server restart
 ```
 
@@ -67,9 +67,9 @@ service nagios-nrpe-server restart
 If you installed the nrpe-server on a container, then we need to port-forward an 'outside' port on the host OS to an 'internal' container port. I leave the default port setting in `/etc/nagios/nrpe.cfg', which is 5666. I then port-forward ports starting from 5667 to port 5666 on the various containers.
 
 
-'''shell
+```
 iptables -t nat -A PREROUTING -p tcp -d <EXTERNAL_HOST_IP> -j DNAT --dport 5667 --to-destination <CONTAINER_IP>:5666
-'''
+```
 
 Save the rules:
 
@@ -165,5 +165,3 @@ Restart nagios:
 ```
 service nagios3 restart
 ```
-
-If you're monitoring the host OS, then 
