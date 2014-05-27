@@ -14,12 +14,6 @@ Create a base container with ZFS backing store:
 lxc-create -t ubuntu -n ubuntu-base -B zfs
 ```
 
-Set quotas on the disk:
-
-```
-zfs set quota=10G lxc/richard
-```
-
 Start the container as a daemon:
 
 ```
@@ -145,6 +139,13 @@ At this point zfs would have auto-created the v0.1 snapshot of the 'my-container
 
 ```
 zfs destroy lxc/my-container@v01
+```
+
+
+Set quotas on the disk:
+
+```
+zfs set quota=10G lxc/my-container
 ```
 
 Auto-start the container on host boot:
