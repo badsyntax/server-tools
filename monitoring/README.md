@@ -39,14 +39,14 @@ ls -l /usr/lib/nagios/plugins/
 vi /etc/nagios/nrpe_local.cfg
 ```
 
-Add the following, but change X.X.X.X to the ip address of the backup server. 
+Add the following, but change X.X.X.X to the ip address of the monitoring server.  10.0.3.1 is the ip address of the network bridge. I needed to add this when port-forwarding to the nagios nrpe service within containers.
 
 ```
 ######################################
 # Do any local nrpe configuration here
 ######################################
 
-allowed_hosts=127.0.0.1,X.X.X.X
+allowed_hosts=127.0.0.1,X.X.X.X,10.0.3.1
 
 command[check_users]=/usr/lib/nagios/plugins/check_users -w 5 -c 10
 command[check_load]=/usr/lib/nagios/plugins/check_load -w 15,10,5 -c 30,25,20
@@ -54,6 +54,7 @@ command[check_rootfs_disk]=/usr/lib/nagios/plugins/check_disk -w 20 -c 10 /
 command[check_zombie_procs]=/usr/lib/nagios/plugins/check_procs -w 5 -c 10 -s Z
 command[check_total_procs]=/usr/lib/nagios/plugins/check_procs -w 150 -c 200
 command[check_swap]=/usr/lib/nagios/plugins/check_swap -w 20 -c 10
+
 ```
 
 Restart the nrpe service:
@@ -83,17 +84,26 @@ View the rules:
 iptables -t nat -L
 ```
 
+Check the port is open:
+
+```
+nmap localhost -p 5667
+```
+
 Now on your backup/monitoring server, check that we can connect to the nagios nrpe server within the container:
 
 ```
-/usr/lib/nagios/plugins/check_nrpe -H 148.251.88.203 -p 5667
+nmap X.X.X.X -p 5667
+/usr/lib/nagios/plugins/check_nrpe -H X.X.X.X -p 5667
 ```
 
 Adding a new host to the nagios monitoring server:
 
+```
 cd /etc/nagios3/conf.d
 cp localhost_nagios2.cfg container.yourhost.com_nagios2.cfg
 vi container.yourhost.com
+```
 
 Add the following: (change X.X.X.X to your host machine ip address, change <port> to the port where nagios-npre-server is listening.)
 
