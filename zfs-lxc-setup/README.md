@@ -54,3 +54,12 @@ Show snapshots when listing the zfs partitions.
 zpool set listsnapshots=on lxc
 ```
 
+## LXC Networking
+
+LXC should add the relevant iptables rule/s automatically, but if you remove them by mistake, then you need to have at least the following rules:
+
+```
+Chain FORWARD (policy ACCEPT)
+target     prot opt source               destination         
+ACCEPT     all  --  10.0.3.0/24          anywhere             ctstate NEW
+```
