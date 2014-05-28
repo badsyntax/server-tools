@@ -67,6 +67,20 @@ service nagios-nrpe-server restart
 
 If you installed the nrpe-server on a container, then we need to port-forward an 'outside' port on the host OS to an 'internal' container port. I leave the default port setting in `/etc/nagios/nrpe.cfg', which is 5666. I then port-forward ports starting from 5667 to port 5666 on the various containers.
 
+Enable ip forwarding:
+
+```
+echo 1 > /proc/sys/net/ipv4/ip_forward
+
+```
+
+In /etc/sysctl.conf:
+
+```
+net.ipv4.ip_forward=1
+```
+
+Add a port forward rule:
 
 ```
 iptables -t nat -A PREROUTING -p tcp -d <EXTERNAL_HOST_IP> -j DNAT --dport 5667 --to-destination <CONTAINER_IP>:5666
