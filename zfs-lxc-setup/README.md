@@ -63,3 +63,16 @@ Chain FORWARD (policy ACCEPT)
 target     prot opt source               destination         
 ACCEPT     all  --  10.0.3.0/24          anywhere             ctstate NEW
 ```
+
+Rules:
+
+```
+iptables -t filter -A INPUT -i lxcbr0 -j ACCEPT
+iptables -t filter -A OUTPUT -o lxcbr0 -j ACCEPT
+iptables -t filter -A FORWARD -i lxcbr0 -j ACCEPT
+iptables -A FORWARD -s 10.0.3.0/24 -o eth0 -j ACCEPT
+iptables -A FORWARD -d 10.0.3.0/24 -o lxcbr0 -j ACCEPT
+
+iptables -A POSTROUTING -t nat -j MASQUERADE
+```
+ 
