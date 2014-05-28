@@ -32,7 +32,6 @@ if [ -z "$serverip" ] || [ -z "$zfspool" ]; then
 fi
 
 check_base_container() {
-
 	found=0
 	for container in $(lxc-ls)
 	do
@@ -40,7 +39,6 @@ check_base_container() {
 			found=1
 		fi
 	done
-
 	if [ $found -eq 0 ]; then
 		echo "Base container does not exist!"
 		exit 1
