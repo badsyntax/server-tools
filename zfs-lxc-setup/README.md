@@ -59,9 +59,9 @@ zpool set listsnapshots=on lxc
 LXC should add the relevant iptables rule/s automatically, but if you remove them by mistake, then you need to have at least the following rules:
 
 ```
-Chain FORWARD (policy ACCEPT)
+Chain POSTROUTING (policy ACCEPT)
 target     prot opt source               destination         
-ACCEPT     all  --  10.0.3.0/24          anywhere             ctstate NEW
+MASQUERADE  all  --  10.0.3.0/24         !10.0.3.0/24 
 ```
 
 Rules:
