@@ -86,7 +86,7 @@ iptables-save > /etc/iptables.conf
 _enabled_containers=""
 for enabled_container in $enabled_containers; do
 	if [ "$enabled_container" != "$opt_container" ]; then
-		_enabled_containers=" $_enabled_containers$enabled_container"
+		_enabled_containers=" $_enabled_containers $enabled_container"
 	fi
 done
 _enabled_containers=$(echo "$_enabled_containers" | sed 's/^ *//g')

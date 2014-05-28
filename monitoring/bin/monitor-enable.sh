@@ -131,9 +131,9 @@ echo "Updating config..."
 # Re-generate the .prox-monitor config
 _enabled_containers=""
 for enabled_container in $enabled_containers; do
-	 _enabled_containers=" $_enabled_containers$enabled_container"
+	 _enabled_containers=" $_enabled_containers $enabled_container"
 done
-_enabled_containers=" $_enabled_containers$opt_container"
+_enabled_containers=" $_enabled_containers $opt_container"
 _enabled_containers=$(echo "$_enabled_containers" | sed 's/^ *//g')
 _enabled_containers="enabled_containers=\"$_enabled_containers\""
 echo "$_enabled_containers" > "$monitor_configfile"
