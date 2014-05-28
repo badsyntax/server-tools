@@ -64,15 +64,10 @@ target     prot opt source               destination
 MASQUERADE  all  --  10.0.3.0/24         !10.0.3.0/24 
 ```
 
-Rules:
+Iptables Rules:
 
 ```
-iptables -t filter -A INPUT -i lxcbr0 -j ACCEPT
-iptables -t filter -A OUTPUT -o lxcbr0 -j ACCEPT
-iptables -t filter -A FORWARD -i lxcbr0 -j ACCEPT
-iptables -A FORWARD -s 10.0.3.0/24 -o eth0 -j ACCEPT
-iptables -A FORWARD -d 10.0.3.0/24 -o lxcbr0 -j ACCEPT
-
-iptables -A POSTROUTING -t nat -j MASQUERADE
+-A POSTROUTING -s 10.0.3.0/24 ! -d 10.0.3.0/24 -j MASQUERADE
+-A POSTROUTING -j MASQUERADE
 ```
  
