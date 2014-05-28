@@ -52,7 +52,7 @@ fi
 configfile="$HOME/.prox-monitor"
 source "$configfile"
 if [ -z "$enabled_containers" ]; then
-	enaled_containers=""
+	enabled_containers=""
 fi
 
 check_container() {
