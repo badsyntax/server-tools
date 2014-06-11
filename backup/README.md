@@ -80,3 +80,7 @@ gunzip sascha@0.1.gz
 zfs receive lxc/sascha < sascha@0.1 -F
 zfs destroy lxc/sascha@0.1
 ```
+
+Links:
+
+http://zef.me/6023/who-needs-git-when-you-got-zfs
