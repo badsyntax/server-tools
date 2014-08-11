@@ -72,6 +72,7 @@ upload_max_filesize = 32M
 post_max_size = 64M
 date.timezone = "Europe/London"
 memory_limit = 128M
+expose_php = Off
 ```
 
 Test Apache config:
