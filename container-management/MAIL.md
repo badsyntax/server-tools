@@ -43,6 +43,7 @@ Adjust the following:
 myhostname = example.com
 mydestination = localhost, example.com
 mynetworks = 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128
+inet_interfaces = all
 ```
 
 Open up `/etc/dovecot/conf.d/10-ssl.conf` and sure `ssl = yes` exists
