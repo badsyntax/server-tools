@@ -14,6 +14,12 @@ We also need create an A record for the mail subdomain:
 mail         IN A       <x.x.x.x>
 ```
 
+Forward ports:
+
+```
+iptables -t nat -A PREROUTING -p tcp -d <EXTERNAL_HOST_IP> -j DNAT --dport 1000 --to-destination <CONTAINER_IP>:25
+```
+
 Now we need to install postfix and dovcot in the container:
 
 ```bash
@@ -47,3 +53,7 @@ inet_interfaces = all
 ```
 
 Open up `/etc/dovecot/conf.d/10-ssl.conf` and sure `ssl = yes` exists
+
+Troubleshooting
+
+Check logs: `tail -f  /var/log/mail.log`
