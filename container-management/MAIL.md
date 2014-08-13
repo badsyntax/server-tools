@@ -155,6 +155,28 @@ smtpd_use_tls = yes
 tls_random_source = dev:/dev/urandom
 ```
 
+Check auth:
+
+```
+openssl s_client -connect localhost:25 -starttls smtp -CApath /etc/ssl/certs/
+```
+
+.. then type: `ehlo localhost`
+
+.. which should show:
+
+```
+250-example.com
+250-PIPELINING
+250-SIZE 10240000
+250-VRFY
+250-ETRN
+250-AUTH PLAIN
+250-AUTH=PLAIN
+250-ENHANCEDSTATUSCODES
+250-8BITMIME
+250 DSN
+```
 
 Troubleshooting
 
