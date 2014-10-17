@@ -192,8 +192,9 @@ define service{
         use             generic-service
         host_name       milos.proxima.cc
         service_description shinemusicschool.es HTTP
-        check_command check_nrpe_1arg!check_http_domain!http://shinemusicschool.es
+        check_command check_nrpe!check_http_domain!"your_domain.es"
 }
+
 
 
 ```
