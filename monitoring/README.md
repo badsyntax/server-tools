@@ -39,14 +39,15 @@ ls -l /usr/lib/nagios/plugins/
 vi /etc/nagios/nrpe_local.cfg
 ```
 
-Add the following, but change X.X.X.X to the ip address of the monitoring server.  10.0.3.1 is the ip address of the network bridge. I needed to add this when port-forwarding to the nagios nrpe service within containers.
+Add the following, but change X.X.X.X to the either the ip address of the monitoring server. or the address of the network bridge, if installing in a container (eg 10.0.3.1). (I needed to add this when port-forwarding to the nagios nrpe service within containers.)
 
 ```
 ######################################
 # Do any local nrpe configuration here
 ######################################
 
-allowed_hosts=127.0.0.1,X.X.X.X,10.0.3.1
+allowed_hosts=127.0.0.1,X.X.X.X
+dont_blame_nrpe=1
 
 command[check_users]=/usr/lib/nagios/plugins/check_users -w 5 -c 10
 command[check_load]=/usr/lib/nagios/plugins/check_load -w 15,10,5 -c 30,25,20
@@ -54,6 +55,10 @@ command[check_rootfs_disk]=/usr/lib/nagios/plugins/check_disk -w 20 -c 10 /
 command[check_zombie_procs]=/usr/lib/nagios/plugins/check_procs -w 5 -c 10 -s Z
 command[check_total_procs]=/usr/lib/nagios/plugins/check_procs -w 150 -c 200
 command[check_swap]=/usr/lib/nagios/plugins/check_swap -w 20 -c 10
+command[check_apt]=/usr/lib/nagios/plugins/check_apt
+command[check_smtp]=/usr/lib/nagios/plugins/check_smtp -H localhost
+command[check_http]=/usr/lib/nagios/plugins/check_http -H localhost
+command[check_http_domain]=/usr/lib/nagios/plugins/check_http -H $ARG1$ -u /
 
 ```
 
@@ -101,7 +106,7 @@ iptables -t nat -L
 Check the port is open:
 
 ```
-nmap localhost -p 5667
+nmap localhost -p 5666
 ```
 
 Now on your backup/monitoring server, check that we can connect to the nagios nrpe server within the container:
