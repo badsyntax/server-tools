@@ -186,6 +186,15 @@ define service{
         service_description             Current Load
 	check_command                   check_nrpe_1arg!check_load
         }
+        
+# Define a service to check HTTP status of domains
+define service{
+        use             generic-service
+        host_name       milos.proxima.cc
+        service_description shinemusicschool.es HTTP
+        check_command check_nrpe_1arg!check_http_domain!http://shinemusicschool.es
+}
+
 
 ```
 
