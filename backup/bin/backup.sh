@@ -6,23 +6,28 @@
 export HOME=/root
 ### LEAVE THE REST UNTOUCHED ###
 
-# Attempt to load the config
-configfile="$HOME/.backupcfg"
-if [ ! -e "$configfile" ]; then
-	echo "Error: backup config file does not exist at location: $configfile"
-	exit 1
-fi
-source "$configfile"
-if [ -z "$ftpbackupdir" ] || [ -z "$localbackupdir" ] || [ -z "$s3bucket" ] || [ -z "$zfspool" ] || [ -z "$ftpuser" ]; then
-	echo "Invalid config!"
-	exit 1
-fi
+function load_config {
+
+	local configfile="$HOME/.backupcfg"
+
+	if [ ! -e "$configfile" ]; then
+		echo "Error: backup config file does not exist at location: $configfile"
+		exit 1
+	fi
+
+	source "$configfile"
+
+	if [ -z "$ftpbackupdir" ] || [ -z "$localbackupdir" ] || [ -z "$s3bucket" ] || [ -z "$zfspool" ] || [ -z "$ftpuser" ]; then
+		echo "Invalid config!"
+		exit 1
+	fi
+}
 
 # Sync local files with s3
 function backup_s3 {
 	# if it's Sunday
 	local today=`date +%w`
-	if [ $today = 0 ]; then
+	#if [ $today = 0 ]; then
 		echo -n "Backing up $localbackupdir to s3..."
 		s3cmd sync --delete-removed "$localbackupdir" "s3://$s3bucket/"
 		if [ $? -ne 0 ]; then
@@ -30,19 +35,19 @@ function backup_s3 {
 			exit 1
 		fi
 		echo -e "done.\n"
-	fi
+	#fi
 }
 
 # Remove backups older than 7 days
 function clean_backups {
 
 	echo -n "Cleaning up old backups at $ftpbackupdir. Removing files older than 2 days..."
-	find "$ftpbackupdir" -mtime +2 -exec rm -f {} \;
+	find "$ftpbackupdir" -type f -mtime +2 -exec rm -f {} \;
 	echo "done."
 	
 	echo -n "Cleaning up old backups at $localbackupdir. Removing files older than 7 days..."
-	find "$localbackupdir" -mtime +7 -exec rm -f {} \;
-	echo "done."
+	find "$localbackupdir" -type f -mtime +7 -exec rm -f {} \;
+	echo -e "done.\n"
 }
 
 # Umount the backup drive
@@ -100,15 +105,10 @@ function backup_zfs {
 
 
 function backup_containers {
-
 	echo -e "Backing up ZFS container snapshots to FTP drive mounted at $ftpbackupdir and local dir at $localbackupdir...\n"
 	for container in $(lxc-ls)
 	do
 		backup_zfs "$container"
-		if [ $? -ne 0 ]; then
-			echo "ZFS backup failed for container $container"
-			exit 1
-		fi
 	done
 }
 
@@ -148,8 +148,8 @@ function show_backup_size {
 }
 
 function show_tree {
-	tree "$ftpbackupdir"
-	tree "$localbackupdir"
+	tree -n "$ftpbackupdir" #no color output
+	tree -n "$localbackupdir" #no color output
 }
 
 function main {
@@ -163,9 +163,9 @@ function main {
 	backup_containers
 	backup_host
 	show_backup_size
-	backup_s3
 	show_tree
 	unmount_backup_drive
+	backup_s3
 	echo -e "\nAll tasks completed successfully!\n"
 }
 main
