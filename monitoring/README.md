@@ -193,13 +193,24 @@ define service{
 define service{
         use             generic-service
         host_name       milos.proxima.cc
-        service_description shinemusicschool.es HTTP
-        check_command check_nrpe!check_http_domain!"your_domain.es"
+        service_description your_domain.com HTTP
+        check_command check_nrpe!check_http_domain!"your_domain.com"
 }
 
+```
 
+You can group containers into a hostgroup.
+
+In /etc/nagios3/conf.d/hostgroups_nagios2.cfg, add a block:
 
 ```
+define hostgroup {
+        hostgroup_name containers
+        alias LXC containers
+        members         container.example.com,container2.example.com
+}
+```
+
 
 Restart nagios:
 
