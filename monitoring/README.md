@@ -138,6 +138,8 @@ define host{
         host_name              	container.yourhost.com
         alias                   container.yourhost.com
         address                 X.X.X.X -p <port>
+        #If container:
+        #parents                 example.com
         }
 
 # Define a service to check the disk space of the root partition
