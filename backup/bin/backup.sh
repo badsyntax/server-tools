@@ -116,13 +116,15 @@ function backup_containers {
 function backup_host {
 	
 	echo "Backing up host files to $ftpbackupdir..."
-	tar -zcf "$ftpbackupdir"/etc/nginx.tar.gz /etc/nginx
+	tar -zcf "$ftpbackupdir"/etc.tar.gz /etc
 	tar -zcf "$ftpbackupdir"/root.tar.gz /root
+	tar -zcf "$ftpbackupdir"/home.tar.gz /home
 	echo "Done"
 	
 	echo "Backing up host files to $localbackupdir..."
-	tar -zcf "$localbackupdir"/etc/nginx.tar.gz /etc/nginx
+	tar -zcf "$localbackupdir"/etc.tar.gz /etc
 	tar -zcf "$localbackupdir"/root.tar.gz /root
+	tar -zcf "$localbackupdir"/home.tar.gz /home
 	echo "Done"
 }
 
