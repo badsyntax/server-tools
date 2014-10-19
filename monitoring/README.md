@@ -40,6 +40,7 @@ vi /etc/nagios/nrpe_local.cfg
 ```
 
 Add the following, but change X.X.X.X to the either the ip address of the monitoring server. or the address of the network bridge, if installing in a container (eg 10.0.3.1). (I needed to add this when port-forwarding to the nagios nrpe service within containers.)
+dont_blame_nrpe is set to 1 allow (n) arguments to be passed to the commands. (I am yet to figure out a better way to do this. Passing arguments feature is required for "check_http_domain" command,)
 
 ```
 ######################################
