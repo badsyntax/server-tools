@@ -2,7 +2,7 @@
 
 A repo to store my bash scripts and documentation for Hetzner server management. 
 
-*This repo is not intended as a guide for others to use, but feel free to have a look around. All code is MIT licensed.*
+*This repo is not intended as a guide for others to use, but feel free to have a look around. Unless otherwise stated, all code is Public Domain.*
 
 ## Server specs
 
