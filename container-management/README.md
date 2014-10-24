@@ -148,6 +148,12 @@ Set quotas on the disk:
 zfs set quota=10G lxc/my-container
 ```
 
+(OPTIONAL) Switch off synchronous file syncing
+
+```
+zfs set sync=disabled lxc/my-container
+```
+
 Auto-start the container on host boot:
 
 ```
