@@ -151,7 +151,8 @@ zfs set quota=10G lxc/my-container
 Auto-start the container on host boot:
 
 ```
-ln -s /var/lib/lxc/my-container/config /etc/lxc/auto/my-container
+vi /var/lib/lxc/my-container/config
+# Add lxc.start.auto = 1
 ```
 
 Adjust networking for container (for example):
