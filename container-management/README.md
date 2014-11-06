@@ -168,6 +168,19 @@ vi /var/lib/lxc/my-container/config
 lxc.network.ipv4 = 10.0.3.132
 ```
 
+For Ubuntu 14.04 guests, I had to manually set a static IP within the container:
+
+```
+# /etc/network/interfaces
+auto eth0
+iface eth0 inet static
+        address 10.0.3.149
+        netmask 255.255.255.0
+        network 10.0.3.0
+        broadcast 10.0.3.255
+        gateway 10.0.3.1
+```
+
 Now we need to port-forward a random port to the container's SSH port:
 
 ```
