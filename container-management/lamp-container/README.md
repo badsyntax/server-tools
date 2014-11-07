@@ -33,6 +33,13 @@ apt-get install mysql-server apache2 php5 php-pear php5-curl php5-dev php5-mcryp
 
 During this install process, mysql will ask for a root password. Set it to a default value, but remember to change it when setting up new containers as clones of this lamp container.
 
+Enable mycrypt extension:
+
+```
+sudo php5enmod mcrypt
+sudo service apache2 restart
+```
+
 Set Apache ServerName:
 
 ```
@@ -49,6 +56,18 @@ Set ServerSignature (server info on dir listings or error pages):
 
 ```
 echo "ServerSignature Off" >> /etc/apache2/apache2.conf
+```
+
+Allow Apache (2.4) to read user home directory:
+
+In /etc/apache/apache2.config:
+
+```
+<Directory /home/username/www/sites>
+	Options Indexes FollowSymLinks
+	AllowOverride None
+	Require all granted
+</Directory>
 ```
 
 Enable Apache modules:
