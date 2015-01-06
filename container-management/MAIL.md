@@ -25,7 +25,7 @@ relayhost =
 mynetworks = 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128
 mailbox_size_limit = 0
 recipient_delimiter = +
-inet_interfaces = localhost
+inet_interfaces = $myhostname, localhost
 
 virtual_alias_domains = otherdomain.tld
 virtual_alias_maps = hash:/etc/postfix/virtual
