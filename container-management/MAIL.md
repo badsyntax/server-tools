@@ -33,3 +33,8 @@ inet_protocols = all
 ```
 
 Final step is to check mail server is not an open relay!
+
+Adding DKIM
+
+View this article: https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-dkim-with-postfix-on-debian-wheezy
+
