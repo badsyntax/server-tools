@@ -8,7 +8,7 @@ First, update your packages and ensure you add apt-add-repository installed:
 
 ```bash
 apt-get update
-apt-get install python-software-properties -y
+apt-get install software-properties-common -y
 ```
 
 ## Install LXC
