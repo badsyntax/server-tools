@@ -14,13 +14,13 @@ Once you've booted into your OS for the first time, we'll want to parition the f
 
 Run: `cfdisk /dev/sda`
 
-Scroll down to the Free Space, Create new partition, use all the space, write changes and exit.
+Scroll down to the Free Space, Create new primary partition, use all the space, write changes and exit.
 
 Repeat for the other disk:
 
 Run: `cfdisk /dev/sdb`
 
-Scroll down to the Free Space, Create new partition, use all the space, write changes and exit.
+Scroll down to the Free Space, Create new primary partition, use all the space, write changes and exit.
 
 **Now reboot the machine.**
 
