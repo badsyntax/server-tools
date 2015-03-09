@@ -1,6 +1,6 @@
 # RESCUE
 
-Hetzner provides a pretty handy rescue system which allows you to re-install your operating system, as well as partition your disk and setup RAID.
+Hetzner provides a pretty handy rescue system which allows you to re-install your operating system, as well as partition your disk and setup RAID. (See http://wiki.hetzner.de/index.php/Installimage/en)
 
 For our setup, we have 2 x 2TB disks. We want to use 128GB in RAID-1 for the host operation system and leave the reset unparitioned (for now).
 
