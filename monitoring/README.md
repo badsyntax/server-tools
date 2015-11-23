@@ -20,6 +20,32 @@ sudo apt-get install nagios3 nagios-nrpe-plugin
 
 Navigate to monitoringserver/nagios3 with your browser.
 
+## Ignore backup mounts on the monitoring server
+
+We want to ignore SSHFS mounted drives on the monitoring server.
+
+Open up `/etc/nagios3/conf.d/localhost_nagios2.cfg`
+
+Add:
+
+```
+define command{
+        command_name    check_all_disks_ignore_ssfhs_mounts
+        command_line    /usr/lib/nagios/plugins/check_disk -w '$ARG1$' -c '$ARG2$' -e -A -i "/backup/proxima"
+}
+```
+
+Adjust the disk space service to use that command, for example:
+
+```
+define service{
+        use                             generic-service         ; Name of service template to use
+        host_name                       localhost
+        service_description             Disk Space
+        check_command                   check_all_disks_ignore_ssfhs_mounts!20%!10%
+        }
+```
+
 ## Installing the nagios server within a container or the host OS
 
 ```
