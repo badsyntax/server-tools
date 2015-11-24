@@ -8,7 +8,7 @@ postfix is installed as a satelite system on the main host server and from withi
 
 The following instructions for setting up postfix relay are taken from: https://mailinabox.email/advanced-configuration.html
 
-Run `sudo apt-get install postfix` and choose “Satellite system” when prompted.
+Run `sudo apt-get install postfix` and choose “Satellite system” when prompted. (Use `sudo dpkg-reconfigure postfix` if already installed.)
 
 Append the following seven lines to `/etc/postfix/main.cf`:
 
