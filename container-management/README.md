@@ -84,6 +84,8 @@ Install mail utils:
 apt-get install postfix mailutils -y
 ```
 
+(Choose “Satellite system” if using an external smtp server)
+
 If you need to reconfigure postfix:
 
 ```
